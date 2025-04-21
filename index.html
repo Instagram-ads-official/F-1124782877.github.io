@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conectando con WhatsApp...</title>
+
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '9473507609359104');
+    fbq('track', 'ViewContent');
+  </script>
+</head>
+<body>
+  <h1>Redirigiendo a WhatsApp…</h1>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const whatsappNumber = '5491124782877';
+      const mensajeBase = 'Hola, vengo por el bono de bienvenida del 200%, ¿me creas un usuario?';
+
+      // Capturar parámetros de la URL
+      const params = new URLSearchParams(window.location.search);
+      let fbclid = params.get('fbclid');
+
+      // Si no está en search, revisar si está en el hash
+      if (!fbclid && window.location.hash.includes('fbclid=')) {
+        const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        fbclid = hashParams.get('fbclid');
+        console.log('fbclid capturado desde hash:', fbclid);
+      }
+
+      // Si tampoco está, intentamos sacarlo del referrer
+      if (!fbclid && document.referrer.includes('fbclid=')) {
+        const refParams = new URLSearchParams(document.referrer.split('?')[1]);
+        fbclid = refParams.get('fbclid');
+        console.log('fbclid capturado desde referrer:', fbclid);
+      }
+
+      // Valor por defecto si no se consigue de ninguna forma
+      if (!fbclid) {
+        console.warn('No se pudo detectar fbclid');
+        fbclid = 'no disponible';
+      }
+
+      // Construcción del mensaje final
+      const mensaje = `${mensajeBase}\nMi Código Promocional es: ${fbclid}`;
+      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensaje)}`;
+
+      // Asegurar que el DOM esté completamente listo antes de redirigir
+      if (document.readyState === 'complete') {
+        window.location.href = whatsappURL;
