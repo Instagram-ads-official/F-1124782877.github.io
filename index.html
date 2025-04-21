@@ -12,7 +12,7 @@
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
     (window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '9473507609359104');
+    fbq('init', '1391288831895635');
     fbq('track', 'ViewContent');
   </script>
 </head>
@@ -55,3 +55,12 @@
       // Asegurar que el DOM esté completamente listo antes de redirigir
       if (document.readyState === 'complete') {
         window.location.href = whatsappURL;
+      } else {
+        window.addEventListener('load', () => {
+          window.location.href = whatsappURL;
+        });
+      }
+    });
+  </script>
+</body>
+</html>
